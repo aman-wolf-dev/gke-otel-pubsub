@@ -1,0 +1,16 @@
+{
+  "name": "backend-a",
+  "version": "1.0.0",
+  "main": "src/server.js",
+  "scripts": {"start": "node -r ./src/tracer.js src/server.js"},
+  "dependencies": {
+    "express": "4.x",
+    "body-parser": "1.x",
+    "@google-cloud/pubsub": "4.x",
+    "@opentelemetry/api": "1.x",
+    "@opentelemetry/sdk-node": "1.x",
+    "@opentelemetry/auto-instrumentations-node": "0.x",
+    "@opentelemetry/propagator-w3c": "1.x",
+    "@opentelemetry/exporter-trace-otlp-grpc": "1.x"
+  }
+}

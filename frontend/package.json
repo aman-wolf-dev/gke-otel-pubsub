@@ -1,0 +1,17 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "18.x",
+    "react-dom": "18.x",
+    "react-scripts": "5.x",
+    "@opentelemetry/api": "1.x",
+    "@opentelemetry/sdk-trace-web": "1.x",
+    "@opentelemetry/propagator-w3c": "1.x"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build"
+  }
+}
