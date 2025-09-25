@@ -1,14 +1,21 @@
+// frontend/src/index.js
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
+import { initOtel } from './otel-browser';
+import './index.css'; // optional - create a minimal file or remove if you don't have it
 
-// OpenTelemetry (web)
-import { WebTracerProvider } from '@opentelemetry/sdk-trace-web';
-import { W3CTraceContextPropagator } from '@opentelemetry/propagator-w3c';
-import { ConsoleSpanExporter, SimpleSpanProcessor } from '@opentelemetry/sdk-trace-base';
+// initialize OpenTelemetry for the browser (sets propagator, instrumentation, etc.)
+initOtel();
 
-const provider = new WebTracerProvider();
-provider.addSpanProcessor(new SimpleSpanProcessor(new ConsoleSpanExporter()));
-provider.register({ propagator: new W3CTraceContextPropagator() });
+const container = document.getElementById('root');
+if (!container) {
+  throw new Error('No #root element found in public/index.html');
+}
+const root = createRoot(container);
 
-createRoot(document.getElementById('root')).render(<App />);
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
