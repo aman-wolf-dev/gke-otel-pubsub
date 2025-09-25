@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  pubsub-emulator:
+    image: google/cloud-sdk:slim
+    command: >
+      gcloud beta emulators pubsub start --host-port=0.0.0.0:8085
+    environment:
+      - PUBSUB_PROJECT_ID=demo-project
+    ports:
+      - "8085:8085"

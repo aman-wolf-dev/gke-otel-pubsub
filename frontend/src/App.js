@@ -1,27 +1,34 @@
-import React from 'react';
-import { trace, context } from '@opentelemetry/api';
+import React, { useEffect } from 'react';
+import axios from 'axios';
+import { initOtel } from './otel-browser';
+import * as api from '@opentelemetry/api';
 
-export default function App() {
+function App() {
+  const tracer = initOtel();
+
   const handleClick = async () => {
-    // Start a client span around the fetch (optional)
-    const tracer = trace.getTracer('frontend-tracer');
-    await context.with(trace.setSpan(context.active(), tracer.startSpan('frontend-click')), async () => {
+    // create client-side span
+    const span = tracer.startSpan('frontend.click-publish');
+    await api.context.with(api.trace.setSpan(api.context.active(), span), async () => {
       try {
-        const resp = await fetch('/api/publish', { method: 'POST', body: JSON.stringify({ text: 'hello from frontend' }), headers: { 'Content-Type': 'application/json' } });
-        const json = await resp.json();
-        console.log(json);
-      } catch (e) {
-        console.error(e);
+        // axios will use fetch instrumentation (if configured) or you can inject headers manually
+        await axios.post('http://localhost:3001/publish', { message: 'from frontend' });
+        console.log('published');
+      } catch (err) {
+        console.error(err);
       } finally {
-        trace.getTracer('frontend-tracer').getActiveSpan()?.end?.();
+        span.end();
       }
     });
   };
 
   return (
-    <div style={{ padding: 24 }}>
-      <h1>Microservices Pub/Sub Tracing Demo</h1>
+    <div style={{ padding: 20 }}>
+      <h2>Pub/Sub trace propagation demo</h2>
       <button onClick={handleClick}>Send message</button>
+      <p>Open console for trace output from frontend and backend services (they print spans to console).</p>
     </div>
   );
 }
+
+export default App;

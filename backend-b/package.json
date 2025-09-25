@@ -1,14 +1,17 @@
 {
   "name": "backend-b",
   "version": "1.0.0",
-  "main": "src/worker.js",
-  "scripts": {"start": "node -r ./src/tracer.js src/worker.js"},
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "create-topics": "node ../scripts/create-topics.js"
+  },
   "dependencies": {
-    "@google-cloud/pubsub": "4.x",
-    "@opentelemetry/api": "1.x",
-    "@opentelemetry/sdk-node": "1.x",
-    "@opentelemetry/auto-instrumentations-node": "0.x",
-    "@opentelemetry/propagator-w3c": "1.x",
-    "@opentelemetry/exporter-trace-otlp-grpc": "1.x"
+    "@google-cloud/pubsub": "^4.6.0",
+    "@opentelemetry/api": "^1.0.0",
+    "@opentelemetry/sdk-node": "^0.33.0",
+    "@opentelemetry/propagator-w3c": "^1.0.0",
+    "@opentelemetry/instrumentation-http": "^0.33.0",
+    "@opentelemetry/sdk-trace-base": "^1.0.0"
   }
 }
