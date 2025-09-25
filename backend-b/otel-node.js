@@ -2,7 +2,7 @@ const { NodeSDK } = require('@opentelemetry/sdk-node');
 const { ConsoleSpanExporter, SimpleSpanProcessor } = require('@opentelemetry/sdk-trace-base');
 const { registerInstrumentations } = require('@opentelemetry/instrumentation');
 const { HttpInstrumentation } = require('@opentelemetry/instrumentation-http');
-const { W3CTraceContextPropagator } = require('@opentelemetry/propagator-w3c');
+const { W3CTraceContextPropagator } = require('@opentelemetry/core');
 const api = require('@opentelemetry/api');
 
 const sdk = new NodeSDK({
